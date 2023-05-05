@@ -1,6 +1,8 @@
 #ifndef SRC_S21_MATRIX_OOP_H_
 #define SRC_S21_MATRIX_OOP_H_
 
+#include <stdexcept>
+
 //-std=c++17 standart
 
 class S21Matrix {
@@ -15,15 +17,18 @@ class S21Matrix {
         S21Matrix(S21Matrix&& other);
         ~S21Matrix();
 
-        bool EqMatrix(const S21Matrix& other);
-        void SumMatrix(const S21Matrix& other);
-        void SubMatrix(const S21Matrix& other);
-        void MulNumber(const double num);
-        void MulMatrix(const S21Matrix& other);
-        S21Matrix Transpose();
-        S21Matrix CalcComplements();
-        double Determinant();
-        S21Matrix InverseMatrix();
-}
+        void CreateMatrix();
+        void ClearMatrix(S21Matrix&& m);
+
+        // bool EqMatrix(const S21Matrix& other);
+        // void SumMatrix(const S21Matrix& other);
+        // void SubMatrix(const S21Matrix& other);
+        // void MulNumber(const double num);
+        // void MulMatrix(const S21Matrix& other);
+        // S21Matrix Transpose();
+        // S21Matrix CalcComplements();
+        // double Determinant();
+        // S21Matrix InverseMatrix();
+};
 
 #endif  // SRC_S21_MATRIX_OOP_H_
