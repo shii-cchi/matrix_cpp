@@ -18,8 +18,11 @@ class S21Matrix {
         double **matrix_;
 
         void CreateMatrix();
+        void CopyMatrix(const S21Matrix& other);
+
         void SumSubMatrix(const S21Matrix& other, Operation op);
         S21Matrix SplitMatrix(int row, int col);
+        void ClearMatrix();
 
     public:
         S21Matrix();
@@ -29,7 +32,6 @@ class S21Matrix {
         ~S21Matrix();
 
         bool EqMatrix(const S21Matrix& other);
-
         void SumMatrix(const S21Matrix& other);
         void SubMatrix(const S21Matrix& other);
         void MulNumber(const double num);
@@ -39,21 +41,17 @@ class S21Matrix {
         double Determinant();
         S21Matrix InverseMatrix();
 
-        S21Matrix& operator+(const S21Matrix &other);
-        S21Matrix& operator-(const S21Matrix &other);
-        S21Matrix& operator*(const double &num);
-        S21Matrix& operator*(const S21Matrix &other);
+        S21Matrix operator+(const S21Matrix &other) const;
+        S21Matrix operator-(const S21Matrix &other) const;
+        S21Matrix operator*(const double &num) const;
+        S21Matrix operator*(const S21Matrix &other) const;
         bool operator==(const S21Matrix &other);
         S21Matrix& operator=(const S21Matrix &other);
-        // S21Matrix &operator+=(const S21Matrix &other);
-        // S21Matrix &operator-=(const S21Matrix &other);
-        // S21Matrix &operator*=(const double &num);
-        // S21Matrix &operator*=(const S21Matrix &other);
-
+        S21Matrix &operator+=(const S21Matrix &other);
+        S21Matrix &operator-=(const S21Matrix &other);
+        S21Matrix &operator*=(const double &num);
+        S21Matrix &operator*=(const S21Matrix &other);
         double &operator()(int row, int col) const;
-
-        // void OutputMatrix();
-        void ClearMatrix();
 };
 
 #endif  // SRC_S21_MATRIX_OOP_H_
