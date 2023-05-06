@@ -16,19 +16,19 @@ TEST(CreateMatrix_3, Throw) {
 TEST(EqMatrix_1, True) {
   S21Matrix matrix_a(3, 3);
   S21Matrix matrix_b(3, 3);
-  ASSERT_TRUE(matrix_a.EqMatrix(matrix_b));
+  ASSERT_TRUE(matrix_a == matrix_b);
 }
 
 TEST(EqMatrix_2, False) {
   S21Matrix matrix_a(3, 3);
   S21Matrix matrix_b(2, 3);
-  ASSERT_FALSE(matrix_a.EqMatrix(matrix_b));
+  ASSERT_FALSE(matrix_a == matrix_b);
 }
 
 TEST(EqMatrix_3, False) {
   S21Matrix matrix_a(3, 3);
   S21Matrix matrix_b(3, 2);
-  ASSERT_FALSE(matrix_a.EqMatrix(matrix_b));
+  ASSERT_FALSE(matrix_a == matrix_b);
 }
 
 TEST(EqMatrix_4, True) {
@@ -38,7 +38,7 @@ TEST(EqMatrix_4, True) {
   matrix_a(0, 0) = 1;
   matrix_b(0, 0) = 1;
 
-  ASSERT_TRUE(matrix_a.EqMatrix(matrix_b));
+  ASSERT_TRUE(matrix_a == matrix_b);
 }
 
 TEST(EqMatrix_5, FALSE) {
@@ -48,7 +48,7 @@ TEST(EqMatrix_5, FALSE) {
   matrix_a(0, 0) = 1;
   matrix_b(0, 0) = 2;
 
-  ASSERT_FALSE(matrix_a.EqMatrix(matrix_b));
+  ASSERT_FALSE(matrix_a == matrix_b);
 }
 
 TEST(SumMatrix_1, Throw) {
@@ -76,7 +76,7 @@ TEST(SumMatrix_3, True) {
 
   matrix_a.SumMatrix(matrix_b);
 
-  ASSERT_TRUE(matrix_a.EqMatrix(matrix_c));
+  ASSERT_TRUE(matrix_a == matrix_c);
 }
 
 TEST(SubMatrix_1, Throw) {
@@ -104,7 +104,7 @@ TEST(SubMatrix_3, True) {
 
   matrix_a.SubMatrix(matrix_b);
 
-  ASSERT_TRUE(matrix_a.EqMatrix(matrix_c));
+  ASSERT_TRUE(matrix_a == matrix_c);
 }
 
 TEST(MulNumber_1, True) {
@@ -118,7 +118,89 @@ TEST(MulNumber_1, True) {
 
   matrix_a.MulNumber(2);
 
-  ASSERT_TRUE(matrix_a.EqMatrix(matrix_b));
+  ASSERT_TRUE(matrix_a == matrix_b);
+}
+
+TEST(MulMatrix_1, Throw) {
+  S21Matrix matrix_a(2, 2);
+  S21Matrix matrix_b(3, 3);
+  EXPECT_THROW(matrix_a.MulMatrix(matrix_b), std::invalid_argument);
+}
+
+TEST(MulMatrix_2, True) {
+  S21Matrix matrix_a(2, 3);
+  S21Matrix matrix_b(3, 2);
+  S21Matrix matrix_c(2, 2);
+
+  matrix_a(0, 0) = 1;
+  matrix_a(0, 1) = 2;
+  matrix_b(0, 0) = 3;
+  matrix_b(0, 1) = 4;
+
+  matrix_c(0, 0) = 3;
+  matrix_c(0, 1) = 4;
+
+  matrix_a.MulMatrix(matrix_b);
+
+  ASSERT_TRUE(matrix_a == matrix_c);
+}
+
+TEST(Transpose_1, True) {
+  S21Matrix matrix_a(2, 3);
+  S21Matrix matrix_b(3, 2);
+
+  matrix_a(0, 0) = 1;
+  matrix_a(0, 1) = 2;
+  matrix_a(0, 2) = 3;
+
+  matrix_b(0, 0) = 1;
+  matrix_b(1, 0) = 2;
+  matrix_b(2, 0) = 3;
+
+  S21Matrix matrix_c = matrix_a.Transpose();
+
+  ASSERT_TRUE(matrix_b == matrix_c);
+}
+
+TEST(Determinant_1, True) {
+  S21Matrix matrix_a(2, 2);
+
+  matrix_a(0, 0) = 1;
+  matrix_a(0, 1) = 2;
+  matrix_a(1, 0) = 3;
+  matrix_a(1, 1) = 4;
+
+  ASSERT_TRUE(matrix_a.Determinant() == -2);
+}
+
+TEST(Determinant_2, True) {
+  S21Matrix matrix_a(1, 1);
+
+  matrix_a(0, 0) = 7;
+
+  ASSERT_TRUE(matrix_a.Determinant() == 7);
+}
+
+TEST(Determinant_3, True) {
+  S21Matrix matrix_a(3, 3);
+
+  matrix_a(0, 0) = 1;
+  matrix_a(0, 1) = 2;
+  matrix_a(0, 2) = 2;
+  matrix_a(1, 0) = 3;
+  matrix_a(1, 1) = 4;
+  matrix_a(1, 2) = 4;
+  matrix_a(2, 0) = 4;
+  matrix_a(2, 1) = 5;
+  matrix_a(2, 2) = 6;
+
+  ASSERT_TRUE(matrix_a.Determinant() == -2);
+}
+
+TEST(Determinant_4, Throw) {
+  S21Matrix matrix_a(2, 3);
+
+  EXPECT_THROW(matrix_a.Determinant(), std::invalid_argument);
 }
 
 int main(int argc, char **argv) {
