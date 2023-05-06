@@ -13,9 +13,19 @@ TEST(CreateMatrix_3, Throw) {
   EXPECT_THROW(S21Matrix matrix_a(1, 0), std::invalid_argument);
 }
 
+TEST(CreateMatrix_4, True) {
+  S21Matrix matrix_a(1, 1);
+  matrix_a(0, 0) = 7;
+
+  S21Matrix matrix_b(matrix_a);
+  S21Matrix matrix_c(std::move(matrix_a));
+
+  ASSERT_TRUE(matrix_b == matrix_c);
+}
+
 TEST(EqMatrix_1, True) {
-  S21Matrix matrix_a(3, 3);
-  S21Matrix matrix_b(3, 3);
+  S21Matrix matrix_a;
+  S21Matrix matrix_b;
   ASSERT_TRUE(matrix_a == matrix_b);
 }
 
