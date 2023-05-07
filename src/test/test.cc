@@ -1,5 +1,6 @@
-#include "../s21_matrix_oop.h"
 #include <gtest/gtest.h>
+
+#include "../s21_matrix_oop.h"
 
 TEST(CreateMatrix_1, Throw) {
   EXPECT_THROW(S21Matrix matrix_a(0, 0), std::invalid_argument);
@@ -357,8 +358,31 @@ TEST(InverseMatrix_3, True) {
   ASSERT_TRUE(matrix_b == matrix_a.InverseMatrix());
 }
 
+TEST(op_bracket_1, Throw) {
+  S21Matrix matrix_a(2, 2);
+
+  EXPECT_THROW(matrix_a(-1, 1), std::invalid_argument);
+}
+
+TEST(op_bracket_2, Throw) {
+  S21Matrix matrix_a(2, 2);
+
+  EXPECT_THROW(matrix_a(1, -1), std::invalid_argument);
+}
+
+TEST(op_bracket_3, Throw) {
+  S21Matrix matrix_a(2, 2);
+
+  EXPECT_THROW(matrix_a(2, 1), std::invalid_argument);
+}
+
+TEST(op_bracket_4, Throw) {
+  S21Matrix matrix_a(2, 2);
+
+  EXPECT_THROW(matrix_a(1, 2), std::invalid_argument);
+}
+
 int main(int argc, char **argv) {
   testing::InitGoogleTest(&argc, argv);
   return RUN_ALL_TESTS();
 }
-

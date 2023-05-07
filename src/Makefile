@@ -20,7 +20,7 @@ SOURCES_2 = test/test.cc
 OBJECTS_2 = test.o
 
 .PHONY: all
-all: clean
+all: gcov_report
 
 s21_matrix_oop.a: clean
 	$(CC) $(CFLAGS) -c $(SOURCES_1)
