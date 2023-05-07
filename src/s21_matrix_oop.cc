@@ -8,7 +8,8 @@ S21Matrix::S21Matrix() {
 
 S21Matrix::S21Matrix(int rows, int cols) {
   if (rows < 1 || cols < 1) {
-    throw std::invalid_argument("Rows and cols must be positive integers");
+    throw std::invalid_argument(
+        "Number of rows and number of cols must be positive integers");
   }
 
   rows_ = rows;
@@ -54,6 +55,14 @@ void S21Matrix::CreateMatrix() {
   matrix_ = new double*[rows_];
   for (int i = 0; i < rows_; i++) {
     matrix_[i] = new double[cols_];
+  }
+}
+
+void S21Matrix::ClearMatrix() {
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < cols_; j++) {
+      matrix_[i][j] = 0;
+    }
   }
 }
 
@@ -314,10 +323,54 @@ double& S21Matrix::operator()(int row, int col) const {
   return matrix_[row][col];
 }
 
-void S21Matrix::ClearMatrix() {
-  for (int i = 0; i < rows_; i++) {
+int S21Matrix::GetRows() const { return rows_; }
+
+int S21Matrix::GetCols() const { return cols_; }
+
+void S21Matrix::SetRows(int rows) {
+  if (rows < 1) {
+    throw std::invalid_argument("Number of rows must be positive integer");
+  }
+
+  S21Matrix tmp(rows, cols_);
+  int filled_rows = 0;
+
+  if (rows < rows_) {
+    filled_rows = rows;
+
+  } else if (rows > rows_) {
+    filled_rows = rows_;
+  }
+
+  for (int i = 0; i < filled_rows; i++) {
     for (int j = 0; j < cols_; j++) {
-      matrix_[i][j] = 0;
+      tmp.matrix_[i][j] = matrix_[i][j];
     }
   }
+
+  *this = tmp;
+}
+
+void S21Matrix::SetCols(int cols) {
+  if (cols < 1) {
+    throw std::invalid_argument("Number of cols must be positive integer");
+  }
+
+  S21Matrix tmp(rows_, cols);
+  int filled_cols = 0;
+
+  if (cols < cols_) {
+    filled_cols = cols;
+
+  } else if (cols > cols_) {
+    filled_cols = cols_;
+  }
+
+  for (int i = 0; i < rows_; i++) {
+    for (int j = 0; j < filled_cols; j++) {
+      tmp.matrix_[i][j] = matrix_[i][j];
+    }
+  }
+
+  *this = tmp;
 }

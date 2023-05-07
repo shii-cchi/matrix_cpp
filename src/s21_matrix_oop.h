@@ -52,6 +52,12 @@ class S21Matrix {
   S21Matrix &operator*=(const double &num);
   S21Matrix &operator*=(const S21Matrix &other);
   double &operator()(int row, int col) const;
+
+  int GetRows() const;
+  int GetCols() const;
+
+  void SetRows(int rows);
+  void SetCols(int cols);
 };
 
 #endif  // SRC_S21_MATRIX_OOP_H_
