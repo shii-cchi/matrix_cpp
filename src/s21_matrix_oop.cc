@@ -1,9 +1,13 @@
 #include "s21_matrix_oop.h"
 
-S21Matrix::S21Matrix() {
-  rows_ = 0;
-  cols_ = 0;
-  matrix_ = nullptr;
+// int main() {
+//   S21Matrix matrix_a(2, 2);
+//   printf("%f-%f-%f-%f\n", matrix_a(0, 0), matrix_a(0, 1), matrix_a(1, 0), matrix_a(1, 1));
+//   return 0;
+// }
+
+S21Matrix::S21Matrix() : rows_(3), cols_(3) {
+  CreateMatrix();
 }
 
 S21Matrix::S21Matrix(int rows, int cols) {
@@ -16,26 +20,15 @@ S21Matrix::S21Matrix(int rows, int cols) {
   cols_ = cols;
 
   CreateMatrix();
-  ClearMatrix();
 }
 
-S21Matrix::S21Matrix(const S21Matrix& other) {
-  rows_ = other.rows_;
-  cols_ = other.cols_;
-
+S21Matrix::S21Matrix(const S21Matrix& other) : rows_(other.rows_), cols_(other.cols_) {
   CreateMatrix();
-  this->CopyMatrix(other);
+  CopyMatrix(other);
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) {
-  rows_ = other.rows_;
-  cols_ = other.cols_;
-
-  CreateMatrix();
-  ClearMatrix();
-  this->CopyMatrix(other);
-
-  other.~S21Matrix();
+S21Matrix::S21Matrix(S21Matrix&& other) : rows_(other.rows_), cols_(other.cols_), matrix_(other.matrix_) {
+  other.matrix_ = nullptr;
 }
 
 S21Matrix::~S21Matrix() {
@@ -43,27 +36,21 @@ S21Matrix::~S21Matrix() {
     for (int i = 0; i < rows_; i++) {
       delete[] matrix_[i];
     }
-  }
 
-  delete[] matrix_;
-  rows_ = 0;
-  cols_ = 0;
-  matrix_ = nullptr;
+    delete[] matrix_;
+    matrix_ = nullptr;
+  }
 }
 
 void S21Matrix::CreateMatrix() {
   matrix_ = new double*[rows_];
   for (int i = 0; i < rows_; i++) {
-    matrix_[i] = new double[cols_];
+    matrix_[i] = new double[cols_]{};
   }
 }
 
 void S21Matrix::ClearMatrix() {
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      matrix_[i][j] = 0;
-    }
-  }
+  std::memset(matrix_[0], 0, sizeof(double) * rows_ * cols_);
 }
 
 void S21Matrix::CopyMatrix(const S21Matrix& other) {

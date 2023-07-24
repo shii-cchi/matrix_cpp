@@ -2,13 +2,11 @@
 #define SRC_S21_MATRIX_OOP_H_
 
 #include <cmath>
+#include <cstring>
 #include <iostream>
 #include <stdexcept>
 
 #define EPS 1e-07
-
-#define PLUS 1
-#define MINUS -1
 
 enum class Operation { Sum = 1, Sub = -1 };
 
@@ -55,7 +53,6 @@ class S21Matrix {
 
   int GetRows() const;
   int GetCols() const;
-
   void SetRows(int rows);
   void SetCols(int cols);
 };
