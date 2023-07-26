@@ -3,12 +3,7 @@ CFLAGS = -std=c++17 -Wall -Werror -Wextra
 GCOV_FLAG = -fprofile-arcs -ftest-coverage -fPIC -O0
 GCOV_FLAG_TEST = --coverage
 TEST_FLAG = -lgtest
-# LINUX_FLAG = -lm -lsubunit -lrt -lpthread
 OPEN = open
-
-# ifeq ($(shell uname), Linux)
-# 	TEST_FLAG += $(LINUX_FLAG)
-# endif
 
 ifeq ($(shell uname), Linux)
 	OPEN = xdg-open
