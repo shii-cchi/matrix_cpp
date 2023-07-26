@@ -1,7 +1,7 @@
 #include "s21_matrix_oop.h"
 
 // int main() {
-//   S21Matrix matrix_a(2, 2);
+
 //   printf("%f-%f-%f-%f\n", matrix_a(0, 0), matrix_a(0, 1), matrix_a(1, 0), matrix_a(1, 1));
 //   return 0;
 // }
@@ -291,8 +291,10 @@ bool S21Matrix::operator==(const S21Matrix& other) {
 }
 
 S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
-  if (this == &other) {
-    return *this;
+  if (rows_ == other.rows_ && cols_ == other.cols_) {
+    if (*this == other) {
+      return *this;
+    }
   }
 
   ClearMatrix();

@@ -382,6 +382,30 @@ TEST(op_bracket_4, Throw) {
   EXPECT_THROW(matrix_a(1, 2), std::invalid_argument);
 }
 
+TEST(op_copy, TRUE) {
+  S21Matrix matrix_a(2, 2);
+  matrix_a(0, 0) = 2;
+  matrix_a(0, 1) = 5;
+  matrix_a(1, 0) = 6;
+  matrix_a(1, 1) = 3;
+
+  S21Matrix matrix_b(2, 2);
+  matrix_b(0, 0) = 2;
+  matrix_b(0, 1) = 5;
+  matrix_b(1, 0) = 6;
+  matrix_b(1, 1) = 3;
+
+  S21Matrix matrix_c(2, 2);
+  matrix_c(0, 0) = 2;
+  matrix_c(0, 1) = 5;
+  matrix_c(1, 0) = 6;
+  matrix_c(1, 1) = 3;
+
+  matrix_a = matrix_b;
+
+  ASSERT_TRUE(matrix_a == matrix_c);
+}
+
 TEST(GetRows_1, True) {
   S21Matrix matrix_a(2, 3);
 
@@ -456,6 +480,24 @@ TEST(SetRows_3, Throw) {
   EXPECT_THROW(matrix_a.SetRows(-1), std::invalid_argument);
 }
 
+TEST(SetRows_4, TRUE) {
+  S21Matrix matrix_a(2, 2);
+  matrix_a(0, 0) = 2;
+  matrix_a(0, 1) = 5;
+  matrix_a(1, 0) = 6;
+  matrix_a(1, 1) = 3;
+
+  S21Matrix matrix_b(2, 2);
+  matrix_b(0, 0) = 2;
+  matrix_b(0, 1) = 5;
+  matrix_b(1, 0) = 6;
+  matrix_b(1, 1) = 3;
+
+  matrix_a.SetRows(2);
+
+  ASSERT_TRUE(matrix_a == matrix_b);
+}
+
 TEST(SetCols_1, True) {
   S21Matrix matrix_a(3, 3);
   matrix_a(0, 0) = 2;
@@ -516,6 +558,24 @@ TEST(SetCols_3, Throw) {
   S21Matrix matrix_a(2, 2);
 
   EXPECT_THROW(matrix_a.SetCols(-1), std::invalid_argument);
+}
+
+TEST(SetCols_4, TRUE) {
+  S21Matrix matrix_a(2, 2);
+  matrix_a(0, 0) = 2;
+  matrix_a(0, 1) = 5;
+  matrix_a(1, 0) = 6;
+  matrix_a(1, 1) = 3;
+
+  S21Matrix matrix_b(2, 2);
+  matrix_b(0, 0) = 2;
+  matrix_b(0, 1) = 5;
+  matrix_b(1, 0) = 6;
+  matrix_b(1, 1) = 3;
+
+  matrix_a.SetCols(2);
+
+  ASSERT_TRUE(matrix_a == matrix_b);
 }
 
 int main(int argc, char **argv) {
