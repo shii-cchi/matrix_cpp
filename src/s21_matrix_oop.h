@@ -16,11 +16,12 @@ class S21Matrix {
   double **matrix_;
 
   void CreateMatrix();
+  void FillWithZeros();
   void CopyMatrix(const S21Matrix &other);
+  void ClearMatrix();
 
   void SumSubMatrix(const S21Matrix &other, Operation op);
   S21Matrix SplitMatrix(int row, int col);
-  void ClearMatrix();
 
  public:
   S21Matrix();

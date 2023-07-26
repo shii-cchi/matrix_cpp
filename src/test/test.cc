@@ -258,21 +258,21 @@ TEST(Determinant_2, True) {
   ASSERT_TRUE(matrix_a.Determinant() == 7);
 }
 
-// TEST(Determinant_3, True) {
-//   S21Matrix matrix_a(3, 3);
+TEST(Determinant_3, True) {
+  S21Matrix matrix_a(3, 3);
 
-//   matrix_a(0, 0) = 1;
-//   matrix_a(0, 1) = 2;
-//   matrix_a(0, 2) = 2;
-//   matrix_a(1, 0) = 3;
-//   matrix_a(1, 1) = 4;
-//   matrix_a(1, 2) = 4;
-//   matrix_a(2, 0) = 4;
-//   matrix_a(2, 1) = 5;
-//   matrix_a(2, 2) = 6;
+  matrix_a(0, 0) = 1;
+  matrix_a(0, 1) = 2;
+  matrix_a(0, 2) = 2;
+  matrix_a(1, 0) = 3;
+  matrix_a(1, 1) = 4;
+  matrix_a(1, 2) = 4;
+  matrix_a(2, 0) = 4;
+  matrix_a(2, 1) = 5;
+  matrix_a(2, 2) = 6;
 
-//   ASSERT_TRUE(matrix_a.Determinant() == -2);
-// }
+  ASSERT_TRUE(matrix_a.Determinant() == -2);
+}
 
 TEST(Determinant_4, Throw) {
   S21Matrix matrix_a(2, 3);
@@ -292,32 +292,32 @@ TEST(CalcComplements_2, Throw) {
   EXPECT_THROW(matrix_a.CalcComplements(), std::invalid_argument);
 }
 
-// TEST(CalcComplements_3, True) {
-//   S21Matrix matrix_a(3, 3);
-//   S21Matrix matrix_b(3, 3);
+TEST(CalcComplements_3, True) {
+  S21Matrix matrix_a(3, 3);
+  S21Matrix matrix_b(3, 3);
 
-//   matrix_a(0, 0) = 1;
-//   matrix_a(0, 1) = 2;
-//   matrix_a(0, 2) = 3;
-//   matrix_a(1, 0) = 0;
-//   matrix_a(1, 1) = 4;
-//   matrix_a(1, 2) = 2;
-//   matrix_a(2, 0) = 5;
-//   matrix_a(2, 1) = 2;
-//   matrix_a(2, 2) = 1;
+  matrix_a(0, 0) = 1;
+  matrix_a(0, 1) = 2;
+  matrix_a(0, 2) = 3;
+  matrix_a(1, 0) = 0;
+  matrix_a(1, 1) = 4;
+  matrix_a(1, 2) = 2;
+  matrix_a(2, 0) = 5;
+  matrix_a(2, 1) = 2;
+  matrix_a(2, 2) = 1;
 
-//   matrix_b(0, 0) = 0;
-//   matrix_b(0, 1) = 10;
-//   matrix_b(0, 2) = -20;
-//   matrix_b(1, 0) = 4;
-//   matrix_b(1, 1) = -14;
-//   matrix_b(1, 2) = 8;
-//   matrix_b(2, 0) = -8;
-//   matrix_b(2, 1) = -2;
-//   matrix_b(2, 2) = 4;
+  matrix_b(0, 0) = 0;
+  matrix_b(0, 1) = 10;
+  matrix_b(0, 2) = -20;
+  matrix_b(1, 0) = 4;
+  matrix_b(1, 1) = -14;
+  matrix_b(1, 2) = 8;
+  matrix_b(2, 0) = -8;
+  matrix_b(2, 1) = -2;
+  matrix_b(2, 2) = 4;
 
-//   ASSERT_TRUE(matrix_b == matrix_a.CalcComplements());
-// }
+  ASSERT_TRUE(matrix_b == matrix_a.CalcComplements());
+}
 
 TEST(InverseMatrix_1, Throw) {
   S21Matrix matrix_a(2, 3);
@@ -331,32 +331,32 @@ TEST(InverseMatrix_2, Throw) {
   EXPECT_THROW(matrix_a.InverseMatrix(), std::invalid_argument);
 }
 
-// TEST(InverseMatrix_3, True) {
-//   S21Matrix matrix_a(3, 3);
-//   S21Matrix matrix_b(3, 3);
+TEST(InverseMatrix_3, True) {
+  S21Matrix matrix_a(3, 3);
+  S21Matrix matrix_b(3, 3);
 
-//   matrix_a(0, 0) = 2;
-//   matrix_a(0, 1) = 5;
-//   matrix_a(0, 2) = 7;
-//   matrix_a(1, 0) = 6;
-//   matrix_a(1, 1) = 3;
-//   matrix_a(1, 2) = 4;
-//   matrix_a(2, 0) = 5;
-//   matrix_a(2, 1) = -2;
-//   matrix_a(2, 2) = -3;
+  matrix_a(0, 0) = 2;
+  matrix_a(0, 1) = 5;
+  matrix_a(0, 2) = 7;
+  matrix_a(1, 0) = 6;
+  matrix_a(1, 1) = 3;
+  matrix_a(1, 2) = 4;
+  matrix_a(2, 0) = 5;
+  matrix_a(2, 1) = -2;
+  matrix_a(2, 2) = -3;
 
-//   matrix_b(0, 0) = 1;
-//   matrix_b(0, 1) = -1;
-//   matrix_b(0, 2) = 1;
-//   matrix_b(1, 0) = -38;
-//   matrix_b(1, 1) = 41;
-//   matrix_b(1, 2) = -34;
-//   matrix_b(2, 0) = 27;
-//   matrix_b(2, 1) = -29;
-//   matrix_b(2, 2) = 24;
+  matrix_b(0, 0) = 1;
+  matrix_b(0, 1) = -1;
+  matrix_b(0, 2) = 1;
+  matrix_b(1, 0) = -38;
+  matrix_b(1, 1) = 41;
+  matrix_b(1, 2) = -34;
+  matrix_b(2, 0) = 27;
+  matrix_b(2, 1) = -29;
+  matrix_b(2, 2) = 24;
 
-//   ASSERT_TRUE(matrix_b == matrix_a.InverseMatrix());
-// }
+  ASSERT_TRUE(matrix_b == matrix_a.InverseMatrix());
+}
 
 TEST(op_bracket_1, Throw) {
   S21Matrix matrix_a(2, 2);
