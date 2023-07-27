@@ -149,7 +149,8 @@ S21Matrix S21Matrix::CalcComplements() {
   }
 
   if (rows_ < 2) {
-    throw std::invalid_argument("Number of rows and columns must be greater than 1");
+    throw std::invalid_argument(
+        "Number of rows and columns must be greater than 1");
   }
 
   S21Matrix result(rows_, cols_);
@@ -222,7 +223,7 @@ S21Matrix S21Matrix::InverseMatrix() {
   }
 
   S21Matrix result(rows_, cols_);
-  
+
   if (rows_ == 1 && cols_ == 1) {
     result.matrix_[0][0] = 1 / matrix_[0][0];
   } else {
