@@ -1,14 +1,14 @@
 #include "s21_matrix_oop.h"
 
 // int main() {
-
-//   printf("%f-%f-%f-%f\n", matrix_a(0, 0), matrix_a(0, 1), matrix_a(1, 0), matrix_a(1, 1));
+//   S21Matrix m = S21Matrix(1, 1);
+//   m(0, 0) = -5.11;
+//   S21Matrix result = m.InverseMatrix();
+//   printf();
 //   return 0;
 // }
 
-S21Matrix::S21Matrix() : rows_(3), cols_(3) {
-  CreateMatrix();
-}
+S21Matrix::S21Matrix() : rows_(3), cols_(3) { CreateMatrix(); }
 
 S21Matrix::S21Matrix(int rows, int cols) {
   if (rows < 1 || cols < 1) {
@@ -22,18 +22,20 @@ S21Matrix::S21Matrix(int rows, int cols) {
   CreateMatrix();
 }
 
-S21Matrix::S21Matrix(const S21Matrix& other) : rows_(other.rows_), cols_(other.cols_) {
+S21Matrix::S21Matrix(const S21Matrix& other)
+    : rows_(other.rows_), cols_(other.cols_) {
   CreateMatrix();
   CopyMatrix(other);
 }
 
-S21Matrix::S21Matrix(S21Matrix&& other) : rows_(other.rows_), cols_(other.cols_), matrix_(other.matrix_) {
+S21Matrix::S21Matrix(S21Matrix&& other)
+    : rows_(other.rows_), cols_(other.cols_), matrix_(other.matrix_) {
   other.matrix_ = nullptr;
+  other.rows_ = 0;
+  other.cols_ = 0;
 }
 
-S21Matrix::~S21Matrix() {
-  ClearMatrix();
-}
+S21Matrix::~S21Matrix() { ClearMatrix(); }
 
 void S21Matrix::CreateMatrix() {
   matrix_ = new double*[rows_];
@@ -120,7 +122,8 @@ void S21Matrix::MulNumber(const double num) {
 void S21Matrix::MulMatrix(const S21Matrix& other) {
   if (cols_ != other.rows_) {
     throw std::invalid_argument(
-        "Different number of columns of the first matrix and rows of the second matrix");
+        "Different number of columns of the first matrix and rows of the "
+        "second matrix");
   }
 
   S21Matrix result(rows_, other.cols_);
@@ -150,8 +153,7 @@ S21Matrix S21Matrix::Transpose() {
 
 S21Matrix S21Matrix::CalcComplements() {
   if (rows_ != cols_) {
-    throw std::invalid_argument(
-        "Matrix is not square matrix");
+    throw std::invalid_argument("Matrix is not square matrix");
   }
 
   // if (rows_ < 2) {
@@ -286,9 +288,7 @@ S21Matrix& S21Matrix::operator*=(const S21Matrix& other) {
   return *this;
 }
 
-bool S21Matrix::operator==(const S21Matrix& other) {
-  return EqMatrix(other);
-}
+bool S21Matrix::operator==(const S21Matrix& other) { return EqMatrix(other); }
 
 S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
   if (rows_ == other.rows_ && cols_ == other.cols_) {
