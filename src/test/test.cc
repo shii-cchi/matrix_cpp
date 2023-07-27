@@ -358,6 +358,13 @@ TEST(InverseMatrix_3, True) {
   ASSERT_TRUE(matrix_b == matrix_a.InverseMatrix());
 }
 
+TEST(InverseMatrix_4, TRUE) {
+  S21Matrix matrix_a(1, 1);
+  matrix_a(0, 0) = 5;
+
+  ASSERT_TRUE(matrix_a.InverseMatrix()(0, 0) == 0.2);
+}
+
 TEST(op_bracket_1, Throw) {
   S21Matrix matrix_a(2, 2);
 

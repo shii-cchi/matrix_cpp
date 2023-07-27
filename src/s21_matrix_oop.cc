@@ -1,13 +1,5 @@
 #include "s21_matrix_oop.h"
 
-// int main() {
-//   S21Matrix m = S21Matrix(1, 1);
-//   m(0, 0) = -5.11;
-//   S21Matrix result = m.InverseMatrix();
-//   printf();
-//   return 0;
-// }
-
 S21Matrix::S21Matrix() : rows_(3), cols_(3) { CreateMatrix(); }
 
 S21Matrix::S21Matrix(int rows, int cols) {
@@ -156,9 +148,9 @@ S21Matrix S21Matrix::CalcComplements() {
     throw std::invalid_argument("Matrix is not square matrix");
   }
 
-  // if (rows_ < 2) {
-  //   throw std::invalid_argument("Number of rows and columns is less than 2");
-  // }
+  if (rows_ < 2) {
+    throw std::invalid_argument("Number of rows and columns must be greater than 1");
+  }
 
   S21Matrix result(rows_, cols_);
 
@@ -229,17 +221,23 @@ S21Matrix S21Matrix::InverseMatrix() {
     throw std::invalid_argument("Matrix is not square matrix");
   }
 
-  double det = Determinant();
+  S21Matrix result(rows_, cols_);
+  
+  if (rows_ == 1 && cols_ == 1) {
+    result.matrix_[0][0] = 1 / matrix_[0][0];
+  } else {
+    double det = Determinant();
 
-  if (det == 0) {
-    throw std::invalid_argument("Determinant equals 0");
+    if (det == 0) {
+      throw std::invalid_argument("Determinant equals 0");
+    }
+
+    S21Matrix trans(rows_, cols_);
+
+    trans = CalcComplements().Transpose();
+    trans.MulNumber(1 / det);
+    result = trans;
   }
-
-  S21Matrix trans(rows_, cols_), result(rows_, cols_);
-
-  trans = CalcComplements().Transpose();
-  trans.MulNumber(1 / det);
-  result = trans;
 
   return result;
 }
