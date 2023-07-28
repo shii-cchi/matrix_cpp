@@ -30,19 +30,13 @@ TEST(EqMatrix_1, True) {
   ASSERT_TRUE(matrix_a == matrix_b);
 }
 
-TEST(EqMatrix_2, Throw) {
+TEST(EqMatrix_2, False) {
   S21Matrix matrix_a(3, 3);
   S21Matrix matrix_b(2, 3);
-  EXPECT_THROW(matrix_a == matrix_b, std::invalid_argument);
+  ASSERT_FALSE(matrix_a == matrix_b);
 }
 
-TEST(EqMatrix_3, Throw) {
-  S21Matrix matrix_a(3, 3);
-  S21Matrix matrix_b(3, 2);
-  EXPECT_THROW(matrix_a == matrix_b, std::invalid_argument);
-}
-
-TEST(EqMatrix_4, True) {
+TEST(EqMatrix_3, True) {
   S21Matrix matrix_a(2, 2);
   S21Matrix matrix_b(2, 2);
 
@@ -52,7 +46,7 @@ TEST(EqMatrix_4, True) {
   ASSERT_TRUE(matrix_a == matrix_b);
 }
 
-TEST(EqMatrix_5, FALSE) {
+TEST(EqMatrix_4, False) {
   S21Matrix matrix_a(2, 2);
   S21Matrix matrix_b(2, 2);
 

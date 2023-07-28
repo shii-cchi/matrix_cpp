@@ -38,8 +38,8 @@ test: clean test_s21_matrix_oop.a
 
 .PHONY: gcov_report
 gcov_report: clean test
-	gcovr -r . --html-details -o report_calc.html
-	$(OPEN) report_calc.html
+	gcovr -r . --html-details -o report.html
+	$(OPEN) report.html
 	
 .PHONY: clean
 clean:

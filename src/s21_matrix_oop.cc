@@ -69,14 +69,14 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) {
   bool status = true;
 
   if (rows_ != other.rows_ || cols_ != other.cols_) {
-    throw std::invalid_argument("Different matrix dimensions");
-  }
-
-  for (int i = 0; i < rows_; i++) {
-    for (int j = 0; j < cols_; j++) {
-      if (fabs(matrix_[i][j] - other.matrix_[i][j]) > kEpsilon) {
-        status = false;
-        break;
+    status = false;
+  } else {
+    for (int i = 0; i < rows_; i++) {
+      for (int j = 0; j < cols_; j++) {
+        if (fabs(matrix_[i][j] - other.matrix_[i][j]) > kEpsilon) {
+          status = false;
+          break;
+        }
       }
     }
   }
