@@ -1,28 +1,12 @@
-#ifndef SRC_S21_MATRIX_OOP_H_
-#define SRC_S21_MATRIX_OOP_H_
+#ifndef CPP1_S21_MATRIXPLUS_S21_MATRIX_OOP_H_
+#define CPP1_S21_MATRIXPLUS_S21_MATRIX_OOP_H_
 
 #include <cmath>
-#include <cstring>
-#include <iostream>
 #include <stdexcept>
 
-#define EPS 1e-07
-
-enum class Operation { Sum = 1, Sub = -1 };
+enum class SumOrSubOperation { kSum = 1, kSub = -1 };
 
 class S21Matrix {
- private:
-  int rows_, cols_;
-  double **matrix_;
-
-  void CreateMatrix();
-  void FillWithZeros();
-  void CopyMatrix(const S21Matrix &other);
-  void ClearMatrix();
-
-  void SumSubMatrix(const S21Matrix &other, Operation op);
-  S21Matrix SplitMatrix(int row, int col);
-
  public:
   S21Matrix();
   S21Matrix(int rows, int cols);
@@ -56,6 +40,18 @@ class S21Matrix {
   int GetCols() const;
   void SetRows(int rows);
   void SetCols(int cols);
+
+ private:
+  int rows_, cols_;
+  double **matrix_;
+
+  void AllocateMatrix();
+  void FillWithZeros();
+  void CopyMatrix(const S21Matrix &other);
+  void ClearMatrix();
+
+  void SumSubMatrix(const S21Matrix &other, SumOrSubOperation op);
+  S21Matrix GetMinorMatrix(int row, int col);
 };
 
-#endif  // SRC_S21_MATRIX_OOP_H_
+#endif  // CPP1_S21_MATRIXPLUS_S21_MATRIX_OOP_H_

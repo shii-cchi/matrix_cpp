@@ -1,22 +1,22 @@
 #include "s21_matrix_oop.h"
 
-S21Matrix::S21Matrix() : rows_(3), cols_(3) { CreateMatrix(); }
+S21Matrix::S21Matrix() : rows_(3), cols_(3) { AllocateMatrix(); }
 
 S21Matrix::S21Matrix(int rows, int cols) {
   if (rows < 1 || cols < 1) {
     throw std::invalid_argument(
-        "Number of rows and number of cols must be positive integers");
+        "Number of rows and number of columns must be positive integers");
   }
 
   rows_ = rows;
   cols_ = cols;
 
-  CreateMatrix();
+  AllocateMatrix();
 }
 
 S21Matrix::S21Matrix(const S21Matrix& other)
     : rows_(other.rows_), cols_(other.cols_) {
-  CreateMatrix();
+  AllocateMatrix();
   CopyMatrix(other);
 }
 
@@ -29,7 +29,7 @@ S21Matrix::S21Matrix(S21Matrix&& other)
 
 S21Matrix::~S21Matrix() { ClearMatrix(); }
 
-void S21Matrix::CreateMatrix() {
+void S21Matrix::AllocateMatrix() {
   matrix_ = new double*[rows_];
   for (int i = 0; i < rows_; i++) {
     matrix_[i] = new double[cols_]{};
@@ -64,6 +64,8 @@ void S21Matrix::ClearMatrix() {
 }
 
 bool S21Matrix::EqMatrix(const S21Matrix& other) {
+  const double kEpsilon = 1e-07;
+
   bool status = true;
 
   if (rows_ != other.rows_ || cols_ != other.cols_) {
@@ -72,7 +74,7 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) {
 
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
-      if (fabs(matrix_[i][j] - other.matrix_[i][j]) > EPS) {
+      if (fabs(matrix_[i][j] - other.matrix_[i][j]) > kEpsilon) {
         status = false;
         break;
       }
@@ -83,14 +85,14 @@ bool S21Matrix::EqMatrix(const S21Matrix& other) {
 }
 
 void S21Matrix::SumMatrix(const S21Matrix& other) {
-  SumSubMatrix(other, Operation::Sum);
+  SumSubMatrix(other, SumOrSubOperation::kSum);
 }
 
 void S21Matrix::SubMatrix(const S21Matrix& other) {
-  SumSubMatrix(other, Operation::Sub);
+  SumSubMatrix(other, SumOrSubOperation::kSub);
 }
 
-void S21Matrix::SumSubMatrix(const S21Matrix& other, Operation op) {
+void S21Matrix::SumSubMatrix(const S21Matrix& other, SumOrSubOperation op) {
   if (rows_ != other.rows_ || cols_ != other.cols_) {
     throw std::invalid_argument("Different matrix dimensions");
   }
@@ -160,7 +162,7 @@ S21Matrix S21Matrix::CalcComplements() {
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
       tmp.FillWithZeros();
-      tmp = SplitMatrix(i, j);
+      tmp = GetMinorMatrix(i, j);
       minor = tmp.Determinant();
       result.matrix_[i][j] = minor * pow(-1, i + j);
     }
@@ -187,7 +189,7 @@ double S21Matrix::Determinant() {
     for (int j = 0; j < cols_; j++) {
       int i = 0;
       tmp.FillWithZeros();
-      tmp = SplitMatrix(i, j);
+      tmp = GetMinorMatrix(i, j);
       result = tmp.Determinant() * matrix_[i][j] * pow((-1), i + j);
       minor += result;
     }
@@ -197,7 +199,7 @@ double S21Matrix::Determinant() {
   return result;
 }
 
-S21Matrix S21Matrix::SplitMatrix(int row, int col) {
+S21Matrix S21Matrix::GetMinorMatrix(int row, int col) {
   S21Matrix tmp(rows_ - 1, cols_ - 1);
 
   int row_offset = 0;
@@ -301,7 +303,7 @@ S21Matrix& S21Matrix::operator=(const S21Matrix& other) {
   rows_ = other.rows_;
   cols_ = other.cols_;
 
-  CreateMatrix();
+  AllocateMatrix();
 
   for (int i = 0; i < rows_; i++) {
     for (int j = 0; j < cols_; j++) {
@@ -358,7 +360,7 @@ void S21Matrix::SetRows(int rows) {
 
 void S21Matrix::SetCols(int cols) {
   if (cols < 1) {
-    throw std::invalid_argument("Number of cols must be positive integer");
+    throw std::invalid_argument("Number of columns must be positive integer");
   }
 
   if (cols == cols_) {
